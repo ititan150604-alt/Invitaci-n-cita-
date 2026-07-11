@@ -3,162 +3,177 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Una pregunta para ti ❤️</title>
+<title>Una invitación especial ❤️</title>
 
 <style>
 body{
-margin:0;
-font-family:Arial,sans-serif;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-background:linear-gradient(135deg,#ff8fb1,#ffd4e5);
-overflow:hidden;
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(#ffe6ef,#fff);
+    overflow:hidden;
 }
 
-.card{
-background:white;
-padding:35px;
-border-radius:20px;
-width:340px;
-text-align:center;
-box-shadow:0 10px 25px rgba(0,0,0,.2);
-position:relative;
+.contenedor{
+    text-align:center;
+    background:white;
+    padding:35px;
+    border-radius:25px;
+    box-shadow:0 0 20px #ccc;
+    max-width:400px;
 }
 
 h1{
-color:#ff3f7f;
-margin-bottom:10px;
+    color:#e91e63;
 }
 
 button{
-padding:12px 25px;
-border:none;
-border-radius:12px;
-font-size:18px;
-cursor:pointer;
-margin:10px;
+    padding:12px 25px;
+    border:none;
+    border-radius:20px;
+    font-size:18px;
+    cursor:pointer;
+    margin:10px;
 }
 
-#yes{
-background:#4CAF50;
-color:white;
+.si{
+    background:#e91e63;
+    color:white;
 }
 
-#no{
-background:#f44336;
-color:white;
-position:absolute;
+.no{
+    background:#555;
+    color:white;
+    position:absolute;
 }
 
-#segunda,#final{
-display:none;
+#mensaje{
+    height:30px;
+    color:#e91e63;
+    font-weight:bold;
 }
 
-input{
-width:90%;
-padding:10px;
-margin:8px 0;
-border-radius:10px;
-border:1px solid #ccc;
-font-size:16px;
+.oculto{
+    display:none;
 }
 
-select{
-width:95%;
-padding:10px;
-margin:8px 0;
-border-radius:10px;
-font-size:16px;
+.opcion{
+    background:#f8bbd0;
+    width:90%;
+}
+
+.corazon{
+    position:absolute;
+    animation:subir 3s linear forwards;
+}
+
+@keyframes subir{
+    from{
+        transform:translateY(0);
+        opacity:1;
+    }
+    to{
+        transform:translateY(-500px);
+        opacity:0;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
+<div class="contenedor" id="inicio">
 
-<div id="primera">
-<h1>Hola ❤️</h1>
-<p>Tengo una pregunta muy importante...</p>
-<h2>¿Te gustaría salir conmigo? 🥹</h2>
+<h1>¿Quieres salir conmigo? ❤️</h1>
 
-<button id="yes">Sí 💕</button>
-<button id="no">No 🙈</button>
+<div id="mensaje"></div>
+
+<button class="si" onclick="aceptar()">Sí ❤️</button>
+<button class="no" id="no">No 😢</button>
+
 </div>
 
-<div id="segunda">
-<h2>¡Qué emoción! 😍</h2>
 
-<p>Ahora elige el día que más te guste.</p>
+<div class="contenedor oculto" id="invitacion">
 
-<input type="date" id="fecha">
+<h1>Sabía que aceptarías ❤️</h1>
 
-<p>¿A qué hora?</p>
+<p>Ahora toca elegir nuestro plan:</p>
 
-<input type="time" id="hora">
+<button class="opcion">🌳 Parque con lago</button>
+<p>Una caminata tranquila, platicar y hacer algo que nunca hemos hecho juntos.</p>
 
-<p>¿Qué se te antoja?</p>
+<button class="opcion">☕ Café o comida</button>
 
-<select id="lugar">
-<option>Cenar 🍝</option>
-<option>Ir por un café ☕</option>
-<option>Ver una película 🎬</option>
-<option>Helado 🍦</option>
-<option>Pasear 🌇</option>
-</select>
+<button class="opcion">🎬 Cine o paseo</button>
 
 <br><br>
 
-<button onclick="confirmar()">Confirmar ❤️</button>
+<p>
+📅 Día: ___________<br>
+⏰ Hora: ___________<br>
+📍 Lugar: ___________
+</p>
 
 </div>
 
-<div id="final">
-<h2>¡¡Plan confirmado!! 🎉</h2>
-
-<p id="texto"></p>
-
-<h3>Estoy muy emocionado por salir contigo ❤️🥹</h3>
-
-</div>
-
-</div>
 
 <script>
 
-const no=document.getElementById("no");
+let no=document.getElementById("no");
+let mensaje=document.getElementById("mensaje");
+let intentos=0;
 
-no.addEventListener("mouseover",()=>{
+no.addEventListener("mouseover", mover);
 
-let x=Math.random()*(window.innerWidth-120);
+function mover(){
 
-let y=Math.random()*(window.innerHeight-60);
+    intentos++;
 
-no.style.left=x+"px";
-no.style.top=y+"px";
+    let x=Math.random()*(window.innerWidth-100);
+    let y=Math.random()*(window.innerHeight-50);
 
-});
+    no.style.left=x+"px";
+    no.style.top=y+"px";
 
-document.getElementById("yes").onclick=()=>{
+    if(intentos==1){
+        mensaje.innerHTML="Ya casi 😏";
+    }
 
-document.getElementById("primera").style.display="none";
-document.getElementById("segunda").style.display="block";
+    if(intentos==2){
+        mensaje.innerHTML="Jajaja, casi lo logras 😂";
+    }
 
+    if(intentos>=3){
+        mensaje.innerHTML="Creo que ese botón no quiere que digas que no 😌";
+    }
 }
 
-function confirmar(){
 
-let fecha=document.getElementById("fecha").value;
-let hora=document.getElementById("hora").value;
-let lugar=document.getElementById("lugar").value;
+function aceptar(){
 
-document.getElementById("segunda").style.display="none";
-document.getElementById("final").style.display="block";
+document.getElementById("inicio").classList.add("oculto");
+document.getElementById("invitacion").classList.remove("oculto");
 
-document.getElementById("texto").innerHTML=
-"Entonces nos vemos el <b>"+fecha+"</b> a las <b>"+hora+"</b> para <b>"+lugar+"</b>. ❤️";
+for(let i=0;i<30;i++){
+
+let c=document.createElement("div");
+c.innerHTML="❤️";
+c.className="corazon";
+
+c.style.left=Math.random()*100+"vw";
+c.style.top="90vh";
+
+document.body.appendChild(c);
+
+setTimeout(()=>{
+c.remove();
+},3000);
+
+}
 
 }
 
